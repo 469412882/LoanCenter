@@ -6,7 +6,7 @@
     <!-- 应用的主要色调，actionBar默认使用该颜色 -->
     <color name="colorPrimary">#E60033</color>
     <!-- 应用的主要暗色调，statusBarColor默认使用该颜色 -->
-    <color name="colorPrimaryDark">#dd0737</color>
+    <color name="colorPrimaryDark">#ffffff</color>
     <!-- 一般控件的选种效果默认采用该颜色,如progressBar的进度颜色、dialog的按钮颜色、checkbox的选中背景色 -->
     <color name="colorAccent">#FF4081</color>
     <!--  -->
