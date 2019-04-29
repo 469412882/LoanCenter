@@ -1,14 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    //是否打印日志
-    def logSwitch = "false"
-
+    //长尾包修改配置begin
     //包名
     def pkgName = "com.sfzdk.ysdkjq"
     //友盟
     def umengKey = "5acc79638f4a9d26ef00017f"
+    //h5地址
+    def h5url = "http://h5.ad05.pw/sys-loan/14364803240765182454.do"
+    //长尾包修改配置end
 
+    //是否打印日志
+    def logSwitch = "false"
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.db.loan.loancenter"
@@ -21,7 +24,7 @@ android {
         multiDexEnabled true
 
         //默认配置
-        manifestPlaceholders = [PKGNAME_VALUE: pkgName, UMENG_CHANNEL_VALUE: "官方", UMENG_KEY_VALUE: umengKey]
+        manifestPlaceholders = [PKGNAME_VALUE: pkgName, UMENG_CHANNEL_VALUE: "官方", UMENG_KEY_VALUE: umengKey, H5_URL_VALUE: h5url]
 
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
@@ -33,7 +36,7 @@ android {
         flavorDimensions "common","market"
         common {
             dimension "common"
-            manifestPlaceholders = [PKGNAME_VALUE: pkgName, UMENG_KEY_VALUE: umengKey]
+            manifestPlaceholders = [PKGNAME_VALUE: pkgName, UMENG_KEY_VALUE: umengKey, H5_URL_VALUE: h5url]
         }
         Official {
             dimension "market"

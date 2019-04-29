@@ -18,8 +18,11 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.db.loan.loancenter.R;
 import com.yofish.kitmodule.base_component.BaseActivity;
+import com.yofish.kitmodule.util.AppSharedPrefrences;
+import com.yofish.kitmodule.util.Constants;
 import com.yofish.kitmodule.util.LogUtils;
 import com.yofish.kitmodule.util.NetClient;
+import com.yofish.kitmodule.util.Utility;
 import com.yofish.kitmodule.wedget.CustomProgressBar;
 import com.yofish.netmodule.callback.BaseCallBack;
 import com.yofish.netmodule.datatype.AllJsonObject;
@@ -50,6 +53,8 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
      */
     private ImageView introPageView;
 
+    private String h5Url;
+
     @Override
     protected int setLayoutId(Bundle savedInstanceState) {
         return R.layout.activity_intro;
@@ -57,6 +62,10 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initViews() {
+        h5Url = AppSharedPrefrences.getInstance().get(com.db.loan.loancenter.util.Constants.H5_START_URL, "");
+        if (TextUtils.isEmpty(h5Url)) {
+            h5Url = Utility.getMetaDataFromApp(this, "H5_URL");
+        }
         introPageView = (ImageView) findViewById(R.id.intro_image);
     }
 
@@ -95,7 +104,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
         }
         Intent intent = new Intent(IntroActivity.this, MainWebViewActivity.class);
         intent.putExtra(MainWebViewActivity.WEB_TITLE, "贷款超市");
-        intent.putExtra(MainWebViewActivity.WEB_URL, "http://h5.ad05.pw/sys-loan/14364803240765182454.do");
+        intent.putExtra(MainWebViewActivity.WEB_URL, h5Url);
         startActivity(intent);
         finish();
     }
