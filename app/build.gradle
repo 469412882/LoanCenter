@@ -14,7 +14,7 @@ android {
     def logSwitch = "false"
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.db.loan.loancenter"
+        applicationId pkgName
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -129,6 +129,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //基础依赖
-    implementation "com.huach.base:kitmodule:1.4.5"
+    implementation "com.huach.base:kitmodule:1.4.6"
     implementation 'com.android.support:multidex:1.0.3'
 }

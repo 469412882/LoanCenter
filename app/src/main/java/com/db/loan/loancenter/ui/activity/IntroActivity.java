@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -17,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.db.loan.loancenter.R;
+import com.db.loan.loancenter.bean.StartInfoBean;
 import com.yofish.kitmodule.base_component.BaseActivity;
 import com.yofish.kitmodule.util.AppSharedPrefrences;
 import com.yofish.kitmodule.util.Constants;
@@ -26,6 +28,8 @@ import com.yofish.kitmodule.util.Utility;
 import com.yofish.kitmodule.wedget.CustomProgressBar;
 import com.yofish.netmodule.callback.BaseCallBack;
 import com.yofish.netmodule.datatype.AllJsonObject;
+
+import java.util.List;
 
 
 /**
@@ -47,7 +51,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     /**
      * 第一个启动页的启动时间
      */
-    private final int DEF_INTRO_TIME = 3 * 1000;
+    private final int DEF_INTRO_TIME = 5 * 1000;
     /**
      * 启动页view
      */
@@ -113,18 +117,29 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
      * 取启动信息
      */
     private void loadStartInfo() {
-        NetClient.newBuilder(this).baseUrl("http://creditv2.youyuwo.com/notcontrol/enjoy/v2/")
-                .method("start.go").callBack(new BaseCallBack<AllJsonObject>() {
-            @Override
-            public void onSuccess(AllJsonObject startInfo) {
+        NetClient.newBuilder(this).baseUrl("https://raw.githubusercontent.com/469412882/loan_center_interface/master/")
+                .method("start.json").callBack(new BaseCallBack<List<StartInfoBean>>() {
 
+            @Override
+            public void onSuccess(List<StartInfoBean> startInfoBeanList) {
+                if (startInfoBeanList == null) {
+                    return;
+                }
+                String pkgname = Utility.getPackageName(IntroActivity.this);
+                for (StartInfoBean bean : startInfoBeanList) {
+                    if (pkgname.equals(bean.getPkgName())) {
+                        AppSharedPrefrences.getInstance().put(com.db.loan.loancenter.util.Constants.H5_START_URL, bean.getH5Url());
+                        h5Url = bean.getH5Url();
+                        break;
+                    }
+                }
             }
 
             @Override
             public void onFailed(String code, String errors) {
 
             }
-        }).sendPost();
+        }).sendGet();
     }
 
     @Override
