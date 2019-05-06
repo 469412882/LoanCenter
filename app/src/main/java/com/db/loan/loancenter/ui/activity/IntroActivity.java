@@ -51,7 +51,7 @@ public class IntroActivity extends BaseActivity implements View.OnClickListener 
     /**
      * 第一个启动页的启动时间
      */
-    private final int DEF_INTRO_TIME = 5 * 1000;
+    private final int DEF_INTRO_TIME = 3 * 1000;
     /**
      * 启动页view
      */

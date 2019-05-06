@@ -8,6 +8,8 @@ android {
     def umengKey = "5acc79638f4a9d26ef00017f"
     //h5地址
     def h5url = "http://h5.ad05.pw/sys-loan/14364803240765182454.do"
+    //打包生成的前缀名字
+    def releaseNamePre = "xyk"
     //长尾包修改配置end
 
     //是否打印日志
@@ -117,6 +119,21 @@ android {
 //            applicationIdSuffix ".debug"
         }
     }
+
+    //打包文件名处理
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->  // each 改为 all
+            def fileName = releaseNamePre + '_' + variant.productFlavors[1].name + '_V' + versionName + ".apk"
+            def outFile = output.outputFile
+            if (outFile != null && outFile.name.endsWith('.apk')) {
+                outputFileName = fileName  //  output.outputFile 改为 outputFileName
+            }
+
+            if (variant.buildType.name.equals('debug')) {
+
+            }
+        }
+    }
 }
 
 
@@ -132,3 +149,5 @@ dependencies {
     implementation "com.huach.base:kitmodule:1.4.6"
     implementation 'com.android.support:multidex:1.0.3'
 }
+
+
