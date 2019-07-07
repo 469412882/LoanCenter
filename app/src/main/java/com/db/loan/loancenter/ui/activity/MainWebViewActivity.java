@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.db.loan.loancenter.util.MyWebviewClient;
 import com.yofish.kitmodule.base_component.webview.BaseWebActivity;
 
 /**
@@ -43,5 +44,10 @@ public class MainWebViewActivity extends BaseWebActivity {
             decorView.setSystemUiVisibility(flag);
         }
 
+    }
+
+    @Override
+    public void setWebViewClient() {
+        getWebView().setWebViewClient(new MyWebviewClient(this));
     }
 }
